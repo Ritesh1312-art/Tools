@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily-Use-Tools - Your All-in-One Tool Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      padding: 20px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header .logo h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    header nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      color: #ffdd57;
+    }
+
+    header .cta-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background: #ffdd57;
+      color: #333;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .btn.primary {
+      background: #2575fc;
+      color: #fff;
+    }
+
+    .btn:hover {
+      background: #ffcc29;
+    }
+
+    .btn.primary:hover {
+      background: #1a5bbf;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      text-align: center;
+      padding: 120px 0;
+    }
+
+    .hero h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-bar input {
+      padding: 15px;
+      width: 400px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      font-size: 1rem;
+    }
+
+    .search-bar button {
+      padding: 15px 25px;
+      background: #ffdd57;
+      color: #333;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .search-bar button:hover {
+      background: #ffcc29;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 80px 0;
+      text-align: center;
+      background: #fff;
+    }
+
+    .features h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #333;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #2575fc;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .feature-card p {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    /* About Section */
+    .about {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+    }
+
+    .about .btn {
+      background: #ffdd57;
+      color: #333;
+    }
+
+    .about .btn:hover {
+      background: #ffcc29;
+    }
+
+    /* Pricing Section */
+    .pricing {
+      padding: 80px 0;
+      text-align: center;
+      background: #fff;
+    }
+
+    .pricing h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #333;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .pricing-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .pricing-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .pricing-card .price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #2575fc;
+      margin-bottom: 20px;
+    }
+
+    .pricing-card p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 80px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .contact p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .contact form input, .contact form textarea {
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .contact form button {
+      padding: 15px;
+      background: #ffdd57;
+      color: #333;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .contact form button:hover {
+      background: #ffcc29;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    footer ul li a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer ul li a:hover {
+      color: #ffdd57;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h1>Daily-Use-Tools</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="cta-buttons">
+        <a href="#" class="btn">Login</a>
+        <a href="#" class="btn primary">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h2>Your All-in-One Tool Platform</h2>
+      <p>Edit, convert, merge, split, compress, and secure files with ease.</p>
+      <div class="search-bar">
+        <input type="text" placeholder="Search for tools...">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Key Features</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fas fa-file-pdf"></i>
+          <h3>PDF Tools</h3>
+          <p>Edit, merge, split, compress, and secure PDFs.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-image"></i>
+          <h3>Image Tools</h3>
+          <p>Convert, compress, resize, and edit images.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-file-alt"></i>
+          <h3>Document Tools</h3>
+          <p>Convert, summarize, and check grammar.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-video"></i>
+          <h3>Video & Audio Tools</h3>
+          <p>Convert, compress, and edit media files.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-code"></i>
+          <h3>Code Tools</h3>
+          <p>Convert, format, and minify code.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-qrcode"></i>
+          <h3>Other Tools</h3>
+          <p>QR code generator, file converter, and more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2>About Daily-Use-Tools</h2>
+      <p>We are on a mission to simplify file management for individuals, professionals, and organizations. Our tools are designed to be easy-to-use, accessible, and feature-rich.</p>
+      <a href="#" class="btn">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="pricing">
+    <div class="container">
+      <h2>Pricing Plans</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Free</h3>
+          <p>Basic tools with limited features.</p>
+          <p class="price">$0/month</p>
+          <a href="#" class="btn">Get Started</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Pro</h3>
+          <p>Advanced tools and features.</p>
+          <p class="price">$9.99/month</p>
+          <a href="#" class="btn primary">Subscribe</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Business</h3>
+          <p>Unlimited access for teams.</p>
+          <p class="price">$29.99/month</p>
+          <a href="#" class="btn primary">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>Have questions? Reach out to us!</p>
+      <form>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea placeholder="Your Message"></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 Daily-Use-Tools. All rights reserved.</p>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Help Center</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Add interactivity if needed
+    document.addEventListener("DOMContentLoaded", function () {
+      // Example: Add smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth"
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
