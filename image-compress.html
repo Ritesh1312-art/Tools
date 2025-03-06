@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Compressor</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+    }
+
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    .upload-section {
+      margin-bottom: 20px;
+    }
+
+    .upload-section input[type="file"] {
+      display: none;
+    }
+
+    .upload-section label {
+      background: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .upload-section label:hover {
+      background: #0056b3;
+    }
+
+    .compress-level {
+      margin: 20px 0;
+    }
+
+    .compress-level label {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .compress-level input[type="range"] {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .results-table th,
+    .results-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .results-table th {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .results-table td {
+      background: #f9f9f9;
+    }
+
+    .emoji {
+      font-size: 1.5rem;
+    }
+
+    .download-btn {
+      background: #28a745;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: #218838;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Image Compressor 📸</h1>
+    <div class="upload-section">
+      <label for="file-input">📁 Upload Image/Document</label>
+      <input type="file" id="file-input" accept="image/*, application/pdf" multiple>
+    </div>
+    <div class="compress-level">
+      <label for="compress-range">🎚️ Compression Level: <span id="compress-value">50</span>%</label>
+      <input type="range" id="compress-range" min="1" max="100" value="50">
+    </div>
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Original Size</th>
+          <th>Compressed Size</th>
+          <th>Status</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody id="results-body">
+        <!-- Results will be populated here -->
+      </tbody>
+    </table>
+    <div class="footer">
+      Made with ❤️ by Image Compressor ❤️ Ritesh Gupta❤️
+    </div>
+  </div>
+
+  <script>
+    // JavaScript for Image Compression
+    const fileInput = document.getElementById('file-input');
+    const compressRange = document.getElementById('compress-range');
+    const compressValue = document.getElementById('compress-value');
+    const resultsBody = document.getElementById('results-body');
+
+    // Update compression level value
+    compressRange.addEventListener('input', () => {
+      compressValue.textContent = compressRange.value;
+    });
+
+    // Handle file upload and compression
+    fileInput.addEventListener('change', (event) => {
+      const files = event.target.files;
+      if (!files || files.length === 0) return;
+
+      // Clear previous results
+      resultsBody.innerHTML = '';
+
+      // Process each file
+      Array.from(files).forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.src = e.target.result;
+
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas dimensions
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            // Draw image on canvas
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // Compress image
+            const quality = compressRange.value / 100;
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+
+            // Create a new row in the results table
+            const row = document.createElement('tr');
+
+            // File Name
+            const fileNameCell = document.createElement('td');
+            fileNameCell.textContent = file.name;
+            row.appendChild(fileNameCell);
+
+            // Original Size
+            const originalSizeCell = document.createElement('td');
+            originalSizeCell.textContent = `${(file.size / 1024).toFixed(2)} KB`;
+            row.appendChild(originalSizeCell);
+
+            // Compressed Size
+            const compressedSizeCell = document.createElement('td');
+            const compressedSize = (compressedDataUrl.length * 3 / 4 / 1024).toFixed(2);
+            compressedSizeCell.textContent = `${compressedSize} KB`;
+            row.appendChild(compressedSizeCell);
+
+            // Status
+            const statusCell = document.createElement('td');
+            statusCell.innerHTML = `<span class="emoji">✅</span> Compressed`;
+            row.appendChild(statusCell);
+
+            // Download Button
+            const downloadCell = document.createElement('td');
+            const downloadBtn = document.createElement('a');
+            downloadBtn.href = compressedDataUrl;
+            downloadBtn.download = `compressed_${file.name}`;
+            downloadBtn.textContent = 'Download';
+            downloadBtn.classList.add('download-btn');
+            downloadCell.appendChild(downloadBtn);
+            row.appendChild(downloadCell);
+
+            // Append row to the table
+            resultsBody.appendChild(row);
+          };
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  </script>
+</body>
+</html>
