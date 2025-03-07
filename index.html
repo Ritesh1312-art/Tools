@@ -1,487 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daily-Use-Tools - Your All-in-One Tool Platform</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    /* General Styles */
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background: #f9f9f9;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Daily-Use-Tools: A comprehensive platform for PDF, image, document, video, audio, code, and file tools. Simplify your workflow with our easy-to-use tools.">
+    <meta name="keywords" content="PDF tools, image tools, document tools, video tools, audio tools, code tools, file tools, Daily-Use-Tools, Ritesh Gupta">
+    <meta name="author" content="Ritesh Gupta">
+    <title>Daily-Use-Tools - Your All-in-One Tool Platform 🚀</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f4f4f9, #e0e0f5);
+            color: #333;
+            line-height: 1.6;
+        }
 
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    /* Header */
-    header {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: #fff;
-      padding: 20px 0;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+        h1, h2, h3 {
+            color: #4CAF50;
+        }
 
-    header .logo h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      font-weight: bold;
-    }
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
 
-    header nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      gap: 20px;
-    }
+        h2 {
+            font-size: 2em;
+            margin-top: 30px;
+            color: #4CAF50;
+        }
 
-    header nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
+        h3 {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #4CAF50;
+        }
 
-    header nav ul li a:hover {
-      color: #ffdd57;
-    }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
 
-    header .cta-buttons {
-      display: flex;
-      gap: 10px;
-    }
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
 
-    .btn {
-      padding: 10px 20px;
-      background: #ffdd57;
-      color: #333;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: 600;
-      transition: background 0.3s ease;
-    }
+        .tab {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: bold;
+        }
 
-    .btn.primary {
-      background: #2575fc;
-      color: #fff;
-    }
+        .tab:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
 
-    .btn:hover {
-      background: #ffcc29;
-    }
+        .tab.active {
+            background-color: #45a049;
+        }
 
-    .btn.primary:hover {
-      background: #1a5bbf;
-    }
+        /* Tool Sections */
+        .tool-section {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
 
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: #fff;
-      text-align: center;
-      padding: 120px 0;
-    }
+        .tool-section.active {
+            display: block;
+        }
 
-    .hero h2 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
+        .tool-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 40px;
-    }
+        .tool-section ul li {
+            background: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .search-bar {
-      display: flex;
-      justify-content: center;
-    }
+        .tool-section ul li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
 
-    .search-bar input {
-      padding: 15px;
-      width: 400px;
-      border: none;
-      border-radius: 5px 0 0 5px;
-      font-size: 1rem;
-    }
+        .tool-section a {
+            color: #4CAF50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-    .search-bar button {
-      padding: 15px 25px;
-      background: #ffdd57;
-      color: #333;
-      border: none;
-      border-radius: 0 5px 5px 0;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s ease;
-    }
+        .tool-section a:hover {
+            color: #45a049;
+            text-decoration: underline;
+        }
 
-    .search-bar button:hover {
-      background: #ffcc29;
-    }
+        /* Ad Section */
+        .ad-section {
+            text-align: center;
+            margin: 20px 0;
+        }
 
-    /* Features Section */
-    .features {
-      padding: 80px 0;
-      text-align: center;
-      background: #fff;
-    }
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
 
-    .features h2 {
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      color: #333;
-    }
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
 
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
+        footer a:hover {
+            text-decoration: underline;
+        }
 
-    .feature-card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
 
-    .feature-card i {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: #2575fc;
-    }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
 
-    .feature-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: #333;
-    }
+            h2 {
+                font-size: 1.5em;
+            }
 
-    .feature-card p {
-      font-size: 1rem;
-      color: #666;
-    }
+            h3 {
+                font-size: 1.2em;
+            }
 
-    /* About Section */
-    .about {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: #fff;
-      padding: 80px 0;
-      text-align: center;
-    }
-
-    .about h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    .about p {
-      font-size: 1.2rem;
-      margin-bottom: 40px;
-    }
-
-    .about .btn {
-      background: #ffdd57;
-      color: #333;
-    }
-
-    .about .btn:hover {
-      background: #ffcc29;
-    }
-
-    /* Pricing Section */
-    .pricing {
-      padding: 80px 0;
-      text-align: center;
-      background: #fff;
-    }
-
-    .pricing h2 {
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      color: #333;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .pricing-card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .pricing-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .pricing-card h3 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    .pricing-card .price {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #2575fc;
-      margin-bottom: 20px;
-    }
-
-    .pricing-card p {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 30px;
-    }
-
-    /* Contact Section */
-    .contact {
-      padding: 80px 0;
-      text-align: center;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: #fff;
-    }
-
-    .contact h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    .contact p {
-      font-size: 1.2rem;
-      margin-bottom: 40px;
-    }
-
-    .contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .contact form input, .contact form textarea {
-      padding: 15px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-
-    .contact form button {
-      padding: 15px;
-      background: #ffdd57;
-      color: #333;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: background 0.3s ease;
-    }
-
-    .contact form button:hover {
-      background: #ffcc29;
-    }
-
-    /* Footer */
-    footer {
-      background: #333;
-      color: #fff;
-      padding: 20px 0;
-      text-align: center;
-    }
-
-    footer ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    footer ul li a {
-      color: #fff;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    footer ul li a:hover {
-      color: #ffdd57;
-    }
-  </style>
+            .tab {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
     <div class="container">
-      <div class="logo">
-        <h1>Daily-Use-Tools</h1>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="cta-buttons">
-        <a href="#" class="btn">Login</a>
-        <a href="#" class="btn primary">Sign Up</a>
-      </div>
-    </div>
-  </header>
+        <h1>Daily-Use-Tools 🚀</h1>
+        <p>Welcome to Daily-Use-Tools, your all-in-one platform for PDF, image, document, video, audio, code, and file tools. Simplify your workflow with our easy-to-use tools!</p>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <h2>Your All-in-One Tool Platform</h2>
-      <p>Edit, convert, merge, split, compress, and secure files with ease.</p>
-      <div class="search-bar">
-        <input type="text" placeholder="Search for tools...">
-        <button><i class="fas fa-search"></i></button>
-      </div>
-    </div>
-  </section>
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <div class="tab active" data-target="image-tools">Image Tools 🖼️</div>
+            <div class="tab" data-target="pdf-tools">PDF Tools 📄</div>
+            <div class="tab" data-target="document-tools">Document & Text Tools 📝</div>
+            <div class="tab" data-target="video-tools">Video & Audio Tools 🎥</div>
+            <div class="tab" data-target="code-tools">Code & Development Tools 💻</div>
+            <div class="tab" data-target="other-tools">Other Files & Data Tools 📂</div>
+        </div>
 
-  <!-- Features Section -->
-  <section id="features" class="features">
-    <div class="container">
-      <h2>Key Features</h2>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <i class="fas fa-file-pdf"></i>
-          <h3>PDF Tools</h3>
-          <p>Edit, merge, split, compress, and secure PDFs.</p>
+        <!-- Tool Sections -->
+        <div id="image-tools" class="tool-section active">
+            <h2>Image Tools 🖼️</h2>
+            <ul>
+                <li><a href="/image-converter">✅ Image Converter (JPG to PNG, PNG to JPG, etc.)</a></li>
+                <li><a href="/image-compressor">✅ Image Compressor (Reduce file size)</a></li>
+                <li><a href="/image-resizer">✅ Image Resizer</a></li>
+                <li><a href="/image-to-text">✅ Image to Text (OCR)</a></li>
+                <li><a href="/image-background-remover">✅ Image Background Remover</a></li>
+                <li><a href="/image-editor">✅ Image Editor</a></li>
+                <li><a href="/image-watermark-remover">✅ Image Watermark Remover</a></li>
+                <li><a href="/photo-colorizer">✅ Photo Colorizer (Black & White to Color)</a></li>
+                <li><a href="/ai-image-upscaler">✅ AI Image Upscaler (Enhance Image Quality)</a></li>
+                <li><a href="/icon-converter">✅ Icon Converter (ICO to PNG, etc.)</a></li>
+            </ul>
         </div>
-        <div class="feature-card">
-          <i class="fas fa-image"></i>
-          <h3>Image Tools</h3>
-          <p>Convert, compress, resize, and edit images.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fas fa-file-alt"></i>
-          <h3>Document Tools</h3>
-          <p>Convert, summarize, and check grammar.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fas fa-video"></i>
-          <h3>Video & Audio Tools</h3>
-          <p>Convert, compress, and edit media files.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fas fa-code"></i>
-          <h3>Code Tools</h3>
-          <p>Convert, format, and minify code.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fas fa-qrcode"></i>
-          <h3>Other Tools</h3>
-          <p>QR code generator, file converter, and more.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- About Section -->
-  <section id="about" class="about">
-    <div class="container">
-      <h2>About Daily-Use-Tools</h2>
-      <p>We are on a mission to simplify file management for individuals, professionals, and organizations. Our tools are designed to be easy-to-use, accessible, and feature-rich.</p>
-      <a href="#" class="btn">Learn More</a>
-    </div>
-  </section>
-
-  <!-- Pricing Section -->
-  <section id="pricing" class="pricing">
-    <div class="container">
-      <h2>Pricing Plans</h2>
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <h3>Free</h3>
-          <p>Basic tools with limited features.</p>
-          <p class="price">$0/month</p>
-          <a href="#" class="btn">Get Started</a>
+        <div id="pdf-tools" class="tool-section">
+            <h2>PDF Tools 📄</h2>
+            <ul>
+                <li><a href="/pdf-editor">✅ PDF Editor with OCR / without OCR</a></li>
+                <li><a href="/pdf-merger">✅ PDF Merger</a></li>
+                <li><a href="/pdf-splitter">✅ PDF Splitter</a></li>
+                <li><a href="/pdf-to-word">✅ PDF to Word</a></li>
+                <li><a href="/pdf-to-excel">✅ PDF to Excel</a></li>
+                <li><a href="/pdf-to-jpg">✅ PDF to JPG / PNG</a></li>
+                <li><a href="/jpg-to-pdf">✅ JPG / PNG to PDF</a></li>
+                <li><a href="/compress-pdf">✅ Compress PDF</a></li>
+                <li><a href="/pdf-password-remover">✅ PDF Password Remover</a></li>
+                <li><a href="/rotate-pdf">✅ Rotate / Rearrange PDF Pages</a></li>
+                <li><a href="/pdf-form-filler">✅ PDF Form Filler</a></li>
+            </ul>
         </div>
-        <div class="pricing-card">
-          <h3>Pro</h3>
-          <p>Advanced tools and features.</p>
-          <p class="price">$9.99/month</p>
-          <a href="#" class="btn primary">Subscribe</a>
+
+        <div id="document-tools" class="tool-section">
+            <h2>Document & Text Tools 📝</h2>
+            <ul>
+                <li><a href="/word-to-pdf">✅ Word, Excel, Text to PDF / PDF to Word, Excel, Text</a></li>
+                <li><a href="/csv-to-excel">✅ CSV to Excel / Excel to CSV</a></li>
+                <li><a href="/text-summarizer">✅ Text Summarizer</a></li>
+                <li><a href="/grammar-checker">✅ Grammar Checker</a></li>
+                <li><a href="/plagiarism-checker">✅ Plagiarism Checker</a></li>
+                <li><a href="/paraphrasing-tool">✅ Paraphrasing Tool</a></li>
+                <li><a href="/handwriting-to-text">✅ Handwriting to Text Converter</a></li>
+            </ul>
         </div>
-        <div class="pricing-card">
-          <h3>Business</h3>
-          <p>Unlimited access for teams.</p>
-          <p class="price">$29.99/month</p>
-          <a href="#" class="btn primary">Contact Us</a>
+
+        <div id="video-tools" class="tool-section">
+            <h2>Video & Audio Tools 🎥</h2>
+            <ul>
+                <li><a href="/video-converter">✅ Video Converter (MP4 to AVI, MKV to MP4, etc.)</a></li>
+                <li><a href="/video-compressor">✅ Video Compressor</a></li>
+                <li><a href="/trim-video">✅ Trim / Cut Video</a></li>
+                <li><a href="/video-to-gif">✅ Video to GIF</a></li>
+                <li><a href="/audio-converter">✅ Audio Converter (MP3 to WAV / WAV to MP3, etc.)</a></li>
+                <li><a href="/audio-compressor">✅ Audio Compressor</a></li>
+                <li><a href="/text-to-speech">✅ Text-to-Speech (TTS)</a></li>
+                <li><a href="/speech-to-text">✅ Speech-to-Text (Transcription)</a></li>
+                <li><a href="/remove-background-noise">✅ Remove Background Noise from Audio</a></li>
+            </ul>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
-    <div class="container">
-      <h2>Contact Us</h2>
-      <p>Have questions? Reach out to us!</p>
-      <form>
-        <input type="text" placeholder="Your Name">
-        <input type="email" placeholder="Your Email">
-        <textarea placeholder="Your Message"></textarea>
-        <button type="submit" class="btn">Send Message</button>
-      </form>
-    </div>
-  </section>
+        <div id="code-tools" class="tool-section">
+            <h2>Code & Development Tools 💻</h2>
+            <ul>
+                <li><a href="/code-converter">✅ Code Converter (Python to Java, etc.)</a></li>
+                <li><a href="/json-to-csv">✅ JSON to CSV / XML Converter</a></li>
+                <li><a href="/minifier">✅ Minifier (CSS, JS, HTML)</a></li>
+                <li><a href="/code-formatter">✅ Code Formatter / Beautifier</a></li>
+                <li><a href="/base64-encoder">✅ Base64 Encoder / Decoder</a></li>
+                <li><a href="/hash-generator">✅ Hash Generator (MD5, SHA-256, etc.)</a></li>
+            </ul>
+        </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2023 Daily-Use-Tools. All rights reserved.</p>
-      <ul>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
-        <li><a href="#">Help Center</a></li>
-      </ul>
-    </div>
-  </footer>
+        <div id="other-tools" class="tool-section">
+            <h2>Other Files & Data Tools 📂</h2>
+            <ul>
+                <li><a href="/zip-password-remover">✅ ZIP / RAR Password Remover</a></li>
+                <li><a href="/file-converter">✅ File Converter (Any Format to Any Format)</a></li>
+                <li><a href="/ebook-converter">✅ Ebook Converter (EPUB to PDF, MOBI to EPUB, etc.)</a></li>
+                <li><a href="/qr-code-generator">✅ QR Code Generator / Scanner</a></li>
+                <li><a href="/barcode-generator">✅ Barcode Generator</a></li>
+                <li><a href="/invoice-creator">✅ Invoice Creator</a></li>
+                <li><a href="/influencer-income-calculator">✅ Influencer Income Calculator</a></li>
+            </ul>
+        </div>
 
-  <script>
-    // Add interactivity if needed
-    document.addEventListener("DOMContentLoaded", function () {
-      // Example: Add smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute("href")).scrollIntoView({
-            behavior: "smooth"
-          });
+        <!-- Ad Section -->
+        <div class="ad-section">
+            <!-- Adsterra Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'YOUR_ADSTERRA_AD_UNIT_ID', // Replace with your Adsterra Ad Unit ID
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/YOUR_ADSTERRA_AD_UNIT_ID/invoke.js"></scr' + 'ipt>');
+            </script>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Developed by Ritesh Gupta 🚀 | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab Functionality
+        const tabs = document.querySelectorAll('.tab');
+        const toolSections = document.querySelectorAll('.tool-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and sections
+                tabs.forEach(t => t.classList.remove('active'));
+                toolSections.forEach(section => section.classList.remove('active'));
+
+                // Add active class to the clicked tab and corresponding section
+                tab.classList.add('active');
+                const target = document.getElementById(tab.getAttribute('data-target'));
+                target.classList.add('active');
+            });
         });
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
