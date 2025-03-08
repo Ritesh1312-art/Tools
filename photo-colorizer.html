@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fully responsive photo colorizer tool by Ritesh Gupta. Colorize black and white images with ease.">
+    <meta name="keywords" content="photo colorizer, colorize images, Ritesh Gupta, Adsterra ads">
+    <meta name="author" content="Ritesh Gupta">
+    <title>Photo Colorizer Tool by Ritesh Gupta</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f4f4f9, #e0e0f5);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        h1 span {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        /* Upload Section */
+        .upload-section input[type="file"] {
+            display: none;
+        }
+
+        .upload-section label {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .upload-section label:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .uploaded-files {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .uploaded-files ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .uploaded-files li {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Results Section */
+        .results-section {
+            margin-top: 30px;
+        }
+
+        .results-section h2 {
+            font-size: 1.8em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .results-section h2 .author {
+            font-size: 0.6em;
+            color: #777;
+            font-weight: normal;
+        }
+
+        .results-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .results-section th, .results-section td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .results-section th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .status {
+            font-size: 1.2em;
+        }
+
+        .colorize-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .colorize-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .download-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .download-all-btn {
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .download-all-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        /* STARTOVER Button Styles */
+        .startover-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1em;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: bounce 2s infinite;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .startover-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+    </style>
+    <!-- Include JSZip Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+    <!-- STARTOVER Button -->
+    <a href="index.html" class="startover-btn">
+        🔄 STARTOVER
+    </a>
+
+    <div class="container">
+        <h1><span>🎨</span> Photo Colorizer <span>🎨</span></h1>
+        <div class="upload-section">
+            <label for="fileInput">📁 Upload Image(s)</label>
+            <input type="file" id="fileInput" accept="image/*" multiple onchange="showFileNames()">
+        </div>
+        <div class="uploaded-files">
+            <h3>Uploaded Files:</h3>
+            <ul id="fileNamesList">
+                <!-- Uploaded file names will appear here -->
+            </ul>
+        </div>
+        <div class="results-section">
+            <h2>
+                Results 📊
+                <span class="author">| Developed by Ritesh Gupta</span>
+            </h2>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Original Size</th>
+                        <th>Status</th>
+                        <th>Colorize</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Results will be populated here -->
+                </tbody>
+            </table>
+            <button id="downloadAllBtn" class="download-all-btn" style="display: none;">Download All as ZIP</button>
+        </div>
+        <div class="ad-section">
+            <!-- Adsterra Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'eb5c011cfb6c602269d52ea55f421dc5', // Your Adsterra Ad Unit ID
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/YOUR_ADSTERRA_AD_UNIT_ID/invoke.js"></scr' + 'ipt>');
+            </script>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const resultsTable = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
+        const fileNamesList = document.getElementById('fileNamesList');
+        const downloadAllBtn = document.getElementById('downloadAllBtn');
+        let colorizedFiles = [];
+
+        // Show uploaded file names
+        function showFileNames() {
+            fileNamesList.innerHTML = ''; // Clear previous list
+            const files = fileInput.files;
+            if (files.length === 0) {
+                fileNamesList.innerHTML = '<li>No files uploaded yet.</li>';
+                return;
+            }
+            Array.from(files).forEach(file => {
+                const li = document.createElement('li');
+                li.textContent = file.name;
+                fileNamesList.appendChild(li);
+            });
+
+            // Populate results table
+            resultsTable.innerHTML = ''; // Clear previous results
+            colorizedFiles = []; // Clear previous colorized files
+
+            Array.from(files).forEach(file => {
+                const row = resultsTable.insertRow();
+                row.insertCell().textContent = file.name;
+                row.insertCell().textContent = `${(file.size / 1024).toFixed(2)} KB`;
+
+                // Status Icon
+                const statusCell = row.insertCell();
+                statusCell.innerHTML = '<span class="status">❌</span>'; // Default to ❌
+
+                // Colorize Button
+                const colorizeCell = row.insertCell();
+                const colorizeBtn = document.createElement('button');
+                colorizeBtn.textContent = 'Colorize';
+                colorizeBtn.className = 'colorize-btn';
+                colorizeBtn.onclick = async () => {
+                    statusCell.innerHTML = '<span class="status">⏳</span>'; // Show loading
+                    const colorizedFile = await colorizeImage(file);
+                    if (colorizedFile) {
+                        colorizedFiles.push(colorizedFile); // Add to colorized files array
+                        statusCell.innerHTML = '<span class="status">✅</span>'; // Update status to ✅
+                    } else {
+                        statusCell.innerHTML = '<span class="status">❌</span>'; // Update status to ❌
+                        alert("Failed to colorize the image. Please try again.");
+                    }
+                };
+                colorizeCell.appendChild(colorizeBtn);
+
+                // Download Button
+                const downloadCell = row.insertCell();
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = 'Download';
+                downloadBtn.className = 'download-btn';
+                downloadBtn.onclick = () => {
+                    const colorizedFile = colorizedFiles.find(f => f.name === `colorized_${file.name}`);
+                    if (colorizedFile) {
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(colorizedFile);
+                        link.download = colorizedFile.name;
+                        link.click();
+                    } else {
+                        alert("Please colorize the image first.");
+                    }
+                };
+                downloadCell.appendChild(downloadBtn);
+            });
+
+            // Show "Download All" button
+            downloadAllBtn.style.display = 'block';
+        }
+
+        // Colorize image using DeepAI API
+        async function colorizeImage(file) {
+            const apiKey = 'sk-94d9ce5f56824d0eaa4a03dce7030678'; // Replace with your DeepAI API key
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await fetch('https://api.deepai.org/api/colorizer', {
+                    method: 'POST',
+                    headers: {
+                        'api-key': apiKey,
+                    },
+                    body: formData,
+                });
+
+                const data = await response.json();
+                if (data.output_url) {
+                    const imageResponse = await fetch(data.output_url);
+                    const blob = await imageResponse.blob();
+                    return new File([blob], `colorized_${file.name}`, { type: blob.type });
+                } else {
+                    throw new Error("Failed to colorize image.");
+                }
+            } catch (error) {
+                console.error("Error colorizing image:", error);
+                return null;
+            }
+        }
+
+        // Download all colorized files as a ZIP
+        downloadAllBtn.onclick = () => {
+            const zip = new JSZip();
+            colorizedFiles.forEach(file => {
+                zip.file(file.name, file);
+            });
+            zip.generateAsync({ type: 'blob' }).then(content => {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = 'colorized_images.zip';
+                link.click();
+            });
+        };
+    </script>
+</body>
+</html>
