@@ -206,11 +206,37 @@
             40% { transform: translateY(-20px); }
             60% { transform: translateY(-10px); }
         }
+
+        /* STARTOVER Button Styles */
+        .startover-btn {
+            position: absolute; /* Changed from fixed to absolute */
+            top: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1em;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: bounce 2s infinite; /* Same animation as the heading */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .startover-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
     </style>
     <!-- Include JSZip Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
+    <!-- STARTOVER Button -->
+    <a href="index.html" class="startover-btn">
+        🔄 STARTOVER
+    </a>
+
     <div class="container">
         <h1><span>📸</span> Image Compressor <span>📸</span></h1>
         <div class="upload-section">
