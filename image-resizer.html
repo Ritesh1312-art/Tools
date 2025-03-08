@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fully responsive image resizer tool by Ritesh Gupta. Resize and optimize images dynamically with ease.">
+  <meta name="keywords" content="image resizer, image optimizer, resize images, Ritesh Gupta">
+  <meta name="author" content="Ritesh Gupta">
+  <title>Image Resizer Tool by Ritesh Gupta</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      margin: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 800px;
+      position: relative;
+      padding-top: 80px; /* Added padding to create space for Start Over button */
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: #fff;
+    }
+
+    .start-over {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #ff8c42;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 25px;
+      animation: bounce 2s infinite;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(255, 140, 66, 0.3);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .upload-btn {
+      display: inline-block;
+      background: #4CAF50;
+      color: white;
+      padding: 15px 30px;
+      cursor: pointer;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+    }
+
+    .upload-btn:hover {
+      background: #45a049;
+    }
+
+    .resizer-controls {
+      margin: 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .resizer-controls label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    .resizer-controls input[type="number"] {
+      width: 80%;
+      padding: 10px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .resizer-controls input[type="number"]::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .results {
+      margin: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 800px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.2);
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .download-btn {
+      background: #6a11cb;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 10px rgba(106, 17, 203, 0.3);
+    }
+
+    .download-btn:hover {
+      background: #2575fc;
+    }
+
+    #download-all {
+      background: #ff8c42;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255, 140, 66, 0.3);
+      margin-top: 20px;
+    }
+
+    #download-all:hover {
+      background: #ff6f00;
+    }
+
+    .ad-unit {
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      margin: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 800px;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <!-- AdSense Code -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="start-over">🔄 Start Over</a>
+    <h1>Image Resizer Tool 📏</h1>
+  </header>
+
+  <main>
+    <section class="upload-section">
+      <input type="file" id="file-input" accept="image/*" multiple>
+      <label for="file-input" class="upload-btn">📤 Upload Image(s)</label>
+    </section>
+
+    <section class="resizer-controls">
+      <label for="height">Height (px):</label>
+      <input type="number" id="height" placeholder="Enter height">
+
+      <label for="width">Width (px):</label>
+      <input type="number" id="width" placeholder="Enter width">
+
+      <label for="resolution">Resolution (DPI):</label>
+      <input type="number" id="resolution" placeholder="Enter resolution">
+    </section>
+
+    <section class="results">
+      <h2>Results 📊</h2>
+      <table id="results-table">
+        <thead>
+          <tr>
+            <th>Image Name</th>
+            <th>Size</th>
+            <th>Status</th>
+            <th>Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be dynamically added here -->
+        </tbody>
+      </table>
+      <button id="download-all" class="hidden">📥 Download All</button>
+    </section>
+
+    <!-- AdSense Ad Unit -->
+    <div class="ad-unit">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </main>
+
+  <footer>
+    <p>Developed by Ritesh Gupta</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fileInput = document.getElementById('file-input');
+      const heightInput = document.getElementById('height');
+      const widthInput = document.getElementById('width');
+      const resolutionInput = document.getElementById('resolution');
+      const resultsTable = document.getElementById('results-table').getElementsByTagName('tbody')[0];
+      const downloadAllBtn = document.getElementById('download-all');
+      const zip = new JSZip();
+
+      let files = [];
+
+      // Handle file upload
+      fileInput.addEventListener('change', (e) => {
+        files = Array.from(e.target.files);
+        files.forEach((file, index) => {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+              const row = resultsTable.insertRow();
+              const nameCell = row.insertCell(0);
+              const sizeCell = row.insertCell(1);
+              const statusCell = row.insertCell(2);
+              const downloadCell = row.insertCell(3);
+
+              nameCell.textContent = file.name;
+              sizeCell.textContent = `${(file.size / 1024).toFixed(2)} KB`;
+              statusCell.innerHTML = '❌';
+
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+
+              // Get user input for height, width, and resolution
+              const height = parseInt(heightInput.value) || img.height;
+              const width = parseInt(widthInput.value) || img.width;
+              const resolution = parseInt(resolutionInput.value) || 72;
+
+              canvas.width = width;
+              canvas.height = height;
+              ctx.drawImage(img, 0, 0, width, height);
+
+              canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const downloadBtn = document.createElement('a');
+                downloadBtn.href = url;
+                downloadBtn.download = `resized_${file.name}`;
+                downloadBtn.textContent = 'Download';
+                downloadBtn.classList.add('download-btn');
+                downloadCell.appendChild(downloadBtn);
+                statusCell.innerHTML = '✅';
+
+                // Add to zip
+                zip.file(`resized_${file.name}`, blob);
+              }, 'image/jpeg', resolution / 100);
+            };
+          };
+          reader.readAsDataURL(file);
+        });
+
+        if (files.length > 1) {
+          downloadAllBtn.classList.remove('hidden');
+        }
+      });
+
+      // Download all files as zip
+      downloadAllBtn.addEventListener('click', () => {
+        zip.generateAsync({ type: 'blob' }).then((content) => {
+          saveAs(content, 'resized_images.zip');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
